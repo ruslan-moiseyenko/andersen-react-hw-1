@@ -2,16 +2,14 @@
 import './App.css';
 import React from 'react';
 import Header from './components/Header/Header';
-import Buttons from './components/Buttons/Buttons';
 import Info from './components/Information/Information';
 
 function App() {
     return (
-        <>
+        <div className='main'>
             <Header />
-            <Buttons />
             <Info />
-        </>
+        </div>
     );
 }
 

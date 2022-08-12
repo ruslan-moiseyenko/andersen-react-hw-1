@@ -1,11 +1,18 @@
 import React from 'react';
 
-const Buttons = () => {
-    return (
-        <div>
-            <h1>Buttons</h1>
-        </div>
-    );
-};
+class Buttons extends React.Component {
+    handleSubmit = (e) => {
+        e.preventDefault();
+        console.log('handleSubmit');
+    };
+
+    render() {
+        return (
+            <button type='submit' onSubmit={this.handleSubmit}>
+                {this.props.text}{' '}
+            </button>
+        );
+    }
+}
 
 export default Buttons;

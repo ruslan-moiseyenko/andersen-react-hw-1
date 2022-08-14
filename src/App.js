@@ -5,12 +5,12 @@ import Header from './components/Header/Header';
 import Info from './components/Information/Information';
 
 function App() {
-    return (
-        <div className='main'>
-            <Header />
-            <Info />
-        </div>
-    );
+  return (
+    <div className='main'>
+      <Header text='Creating a profile' />
+      <Info />
+    </div>
+  );
 }
 
 export default App;

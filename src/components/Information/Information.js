@@ -1,118 +1,58 @@
 import React from 'react';
-import Buttons from '../Buttons/Buttons';
-import './Information.css';
+import Button from '../Button/Button';
+import Input from '../Input/Input';
+import Textarea from '../Textarea/Textarea';
+import './Information.module.css';
 
 class Info extends React.Component {
-    handleChange = (event) => {
-        event.preventDefault();
-        console.log(event.target.value);
-    };
-    render() {
-        return (
-            <form className='form' onSubmit={this.handleSubmit}>
-                <label>
-                    Name
-                    <br />
-                    <input
-                        type='text'
-                        placeholder='Enter name'
-                        // value={''}
-                        onChange={this.handleChange}
-                    />
-                </label>
-                <label>
-                    Surname
-                    <br />
-                    <input
-                        type='text'
-                        placeholder='Enter Surname'
-                        // value={''}
-                        onChange={this.handleChange}
-                    />
-                </label>
-                <label>
-                    Date of birth
-                    <br />
-                    <input
-                        type='date'
-                        placeholder='Enter yoiur date of birth'
-                        // value={''}
-                        onChange={this.handleChange}
-                    />
-                </label>
-                <label>
-                    Phone number
-                    <br />
-                    <input
-                        type='tel'
-                        placeholder='+380-675-123-45-67'
-                        // value={''}
-                        pattern={'[0-9]{3}-[0-9]{2}-[0-9]{3}'}
-                        onChange={this.handleChange}
-                    />
-                </label>
+  handleChange = (event) => {
+    event.preventDefault();
+    console.log(event.target.value);
+  };
+  render() {
+    return (
+      <form className='form' onSubmit={this.handleSubmit}>
+        <Input header='Name' type='text' placeholder='Enter your name' />
 
-                <label>
-                    Link to a site
-                    <br />
-                    <input
-                        type='url'
-                        placeholder='Enter yoiur link to a site'
-                        // value={''}
-                        onChange={this.handleChange}
-                    />
-                </label>
+        <Input header='Surname' type='text' placeholder='Enter your Surname' />
+        <Input
+          header='Date of birth'
+          type='date'
+          placeholder='Enter yoiur date of birth'
+        />
+        <Input
+          header='Phone number'
+          type='tel'
+          placeholder='+380-678-123-456'
+        />
 
-                <label>
-                    About yourself
-                    <br />
-                    <textarea
-                        rows='7'
-                        placeholder='Here is the place where you can leave a little bit of
-                        information about youreself'
-                    ></textarea>
-                </label>
-                <div className='techStack'>
-                    <label className='techStack'>
-                        Technologies stack
-                        <br />
-                        <label>
-                            JS
-                            <input type='checkbox' valiue='JS' />
-                        </label>
-                        <label>
-                            React
-                            <input type='checkbox' valiue='React' />
-                        </label>
-                        <label>
-                            Angular
-                            <input type='checkbox' valiue='Angular' />
-                        </label>
-                        <label>
-                            HTML
-                            <input type='checkbox' valiue='HTML' />
-                        </label>
-                        <label>
-                            CSS
-                            <input type='checkbox' valiue='CSS' />
-                        </label>
-                    </label>
-                </div>
-                <label>
-                    About your last project
-                    <br />
-                    <textarea
-                        rows='7'
-                        placeholder='Please describe your last project and your responsibilities'
-                    ></textarea>
-                </label>
-                <div className='form__buttons'>
-                    <Buttons text='Save' />
-                    <Buttons text='Cansel' />
-                </div>
-            </form>
-        );
-    }
+        <Input
+          header='Link to a site'
+          type='url'
+          placeholder='Enter yoiur link to a site'
+        />
+        <Textarea text='About you' rows='7' 
+        placeholder='Here is the place where you can leave a little bit of information about youreself' />
+        
+
+        <Input
+          header='Technologies stack'
+          type='text'
+          placeholder='Technologies'
+        />
+
+        <Textarea 
+          text='About your last project' 
+          rows='7' 
+          placeholder='Please describe your last project and your responsibilities'/>
+          
+        <div className='form__buttons'>
+          <Button type='submit' text='Save' />
+          <Button type='reset' text='Cancel' />
+        </div>
+      </form>
+    );
+  }
 }
 
 export default Info;

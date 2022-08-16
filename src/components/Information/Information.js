@@ -16,10 +16,66 @@ class Info extends React.Component {
     project: ''
   };
 
+  inputs = [
+    {
+      id: 1,
+      name: 'name',
+      header: 'Name',
+      className: 'name',
+      type: 'text',
+      placeholder: 'Enter your name',
+
+      pattern: '^[A-ZА-Я][a-zа-я]+$'
+    },
+    {
+      id: 2,
+      name: 'surname',
+      header: 'Sureame',
+      className: 'surname',
+      type: 'text',
+      placeholder: 'Enter your Surname',
+
+      pattern: '^[A-ZА-Я][a-zа-я]+$'
+    },
+    {
+      id: 3,
+      name: 'date',
+      header: 'Date of birth',
+      className: 'date',
+      type: 'date',
+      placeholder: 'Enter yoiur date of birth'
+    },
+    {
+      id: 4,
+      name: 'phone',
+      header: 'Phone number',
+      className: 'phone',
+      type: 'tel',
+      placeholder: '7-7777-77-77'
+    },
+    {
+      id: 5,
+      name: 'site',
+      header: 'Link to a site',
+      className: 'site',
+      type: 'url',
+      placeholder: 'Enter a link to your site'
+    },
+    {
+      id: 6,
+      name: 'stack',
+      header: 'Technologies stack',
+      className: 'stack',
+      type: 'text',
+      placeholder: 'Technologies'
+    }
+  ];
+
   handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
     console.log(Object.fromEntries(data));
+    this.props.onSubmit(Object.fromEntries(data.entries));
   };
 
   handleReset = (e) => {
@@ -49,53 +105,15 @@ class Info extends React.Component {
         onSubmit={this.handleSubmit}
         onReset={this.handleReset}
       >
-        <Input
-          name='name'
-          header='Name'
-          className='name'
-          type='text'
-          placeholder='Enter your name'
-          value={this.state.name}
-          onChange={this.handleChange}
-        />
+        {this.inputs.map((input) => (
+          <Input
+            key={input.id}
+            {...input}
+            value={this.state[input.name]}
+            onChange={this.handleChange}
+          />
+        ))}
 
-        <Input
-          name='surname'
-          header='Surname'
-          className='surname'
-          type='text'
-          placeholder='Enter your Surname'
-          value={this.state.surname}
-          onChange={this.handleChange}
-        />
-        <Input
-          name='date'
-          header='Date of birth'
-          className='date'
-          type='date'
-          placeholder='Enter yoiur date of birth'
-          value={this.state.date}
-          onChange={this.handleChange}
-        />
-        <Input
-          name='phone'
-          header='Phone number'
-          className='phone'
-          type='tel'
-          placeholder='7-7777-77-77'
-          value={this.state.phone}
-          onChange={this.handleChange}
-        />
-
-        <Input
-          name='site'
-          header='Link to a site'
-          className='site'
-          type='url'
-          placeholder='Enter yoiur link to a site'
-          value={this.state.site}
-          onChange={this.handleChange}
-        />
         <Textarea
           name='about'
           text='About you'
@@ -103,16 +121,6 @@ class Info extends React.Component {
           rows='7'
           placeholder='Here is the place where you can leave a little bit of information about youreself'
           value={this.state.about}
-          onChange={this.handleChange}
-        />
-
-        <Input
-          name='stack'
-          header='Technologies stack'
-          className='stack'
-          type='text'
-          placeholder='Technologies'
-          value={this.state.stack}
           onChange={this.handleChange}
         />
 

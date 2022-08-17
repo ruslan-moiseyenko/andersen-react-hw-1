@@ -11,8 +11,9 @@ class App extends Component {
     data: {}
   };
   handleSubmit = (data) => {
-    this.setState({ filled: true, data: data });
-    console.log(this.state);
+    // console.log(data);
+    this.setState((prevState) => ({ ...prevState, filled: true, data: data }));
+    // console.log(this.state);
   };
 
   render() {
@@ -20,7 +21,7 @@ class App extends Component {
       <div className={styles.main}>
         {!this.state.filled && <Header text='Creating a profile' />}
         {!this.state.filled && <Info onSubmit={this.handleSubmit} />}
-        {this.state.filled && <FilledProfile />}
+        {this.state.filled && <FilledProfile data={this.state.data} />}
       </div>
     );
   }

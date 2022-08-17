@@ -23,9 +23,8 @@ class Info extends React.Component {
       header: 'Name',
       className: 'name',
       type: 'text',
-      placeholder: 'Enter your name',
-
-      pattern: '^[A-ZА-Я][a-zа-я]+$'
+      placeholder: 'Enter your name'
+      // pattern: '^[A-ZА-Я][a-zа-я]+$'
     },
     {
       id: 2,
@@ -33,9 +32,8 @@ class Info extends React.Component {
       header: 'Sureame',
       className: 'surname',
       type: 'text',
-      placeholder: 'Enter your Surname',
-
-      pattern: '^[A-ZА-Я][a-zа-я]+$'
+      placeholder: 'Enter your Surname'
+      // pattern: '^[A-ZА-Я][a-zа-я]+$'
     },
     {
       id: 3,
@@ -74,8 +72,11 @@ class Info extends React.Component {
   handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData(e.target);
-    console.log(Object.fromEntries(data));
-    this.props.onSubmit(Object.fromEntries(data.entries));
+    // console.log(Object.fromEntries(data));
+    this.props.onSubmit(Object.fromEntries(data));
+    for (const [key, value] of data) {
+      this.setState({ [key]: value });
+    }
   };
 
   handleReset = (e) => {

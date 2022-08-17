@@ -71,13 +71,99 @@ class Info extends React.Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    const data = new FormData(e.target);
-    // console.log(Object.fromEntries(data));
-    this.props.onSubmit(Object.fromEntries(data));
-    for (const [key, value] of data) {
-      this.setState({ [key]: value });
+    const formData = new FormData(e.target);
+    let data = Object.fromEntries(formData);
+
+    for (let key in data) {
+      data[key] = data[key].trim();
+      this.setState((prevState) => ({ ...prevState, [key]: data[key] }));
+    }
+
+    if (this.checkEntries(data)) {
+      this.props.onSubmit(data);
+    } else {
+      console.log('ERROR');
     }
   };
+
+  checkEntries = (data) => {
+    this.deliteAllErrorsMessages();
+
+    //check for empty entries
+    // for (let key in data) {
+    //   if (data[key] === '') {
+    //     const node = document.getElementsByClassName([key])[0];
+    //     node.insertAdjacentHTML(
+    //       'afterend',
+    //       `<span class=${styles.error}>Please, fill the field</span>`
+    //     );
+    //     node.focus();
+    //     return false;
+    //   }
+    // }
+
+    //check for correct entries
+    for (const key in data) {
+      if (key === 'name') {
+        const regex = new RegExp('[A-ZА-Я][a-zа-я]+$', 'g');
+        if (!regex.test(data[key])) {
+          console.log('Name ERROR');
+          const node = document.getElementsByClassName([key])[0];
+          node.classList.add(styles.errorBorder);
+          node.insertAdjacentHTML(
+            'afterend',
+            `<span class=${styles.error}>Name must start with a capital letter</span>`
+          );
+          node.focus();
+          return false;
+        }
+      }
+      if (key === 'surname') {
+        const regex = new RegExp('^[A-ZА-Я][a-zа-я]+$');
+        if (!regex.test(data[key])) {
+          const node = document.getElementsByClassName([key])[0];
+          node.classList.add(styles.errorBorder);
+          node.insertAdjacentHTML(
+            'afterend',
+            `<span class=${styles.error}>Surame must start with a capital letter</span>`
+          );
+          node.focus();
+          return false;
+        }
+        if (key === 'phone') {
+          const regex = new RegExp('^[0-9]{5,12}$');
+          if (!regex.test(data[key])) {
+            const node = document.getElementsByClassName([key])[0];
+            node.classList.add(styles.errorBorder);
+            node.insertAdjacentHTML(
+              'afterend',
+              `<span class=${styles.error}>Please, enter valid phone</span>`
+            );
+            node.focus();
+            return false;
+          }
+          if (data[key].length > 11) {
+            const node = document.getElementsByClassName([key])[0];
+            node.classList.add(styles.errorBorder);
+            node.insertAdjacentHTML(
+              'afterend',
+              `<span class=${styles.error}>Your phone number should be less then 12 charactersf</span>`
+            );
+            node.focus();
+            return false;
+          }
+        }
+      }
+    }
+    return true;
+  };
+
+  deliteAllErrorsMessages() {
+    const errors = document.getElementsByClassName(styles.error);
+    for (let i = 0; i < errors.length; i++) {
+      errors[i].remove();
+    }
+  }
 
   handleReset = (e) => {
     e.preventDefault();

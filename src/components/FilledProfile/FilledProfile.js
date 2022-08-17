@@ -4,9 +4,8 @@ import styles from './FilledProfile.module.css';
 
 class FilledProfile extends Component {
   render() {
-    console.log(this.props);
     const { name, surname, date, phone, site, about, stack, project } =
-      this.props;
+      this.props.data;
     return (
       <div className={styles.main}>
         <Header text='Your filled profile' />

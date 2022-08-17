@@ -11,7 +11,7 @@ class Input extends React.Component {
       <div className={styles.input}>
         <label>
           {this.props.header}
-          <input {...this.props} onChange={this.handleChange} required />
+          <input {...this.props} onChange={this.handleChange} />
         </label>
       </div>
     );

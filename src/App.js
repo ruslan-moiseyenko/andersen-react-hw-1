@@ -11,9 +11,7 @@ class App extends Component {
     data: {}
   };
   handleSubmit = (data) => {
-    // console.log(data);
     this.setState((prevState) => ({ ...prevState, filled: true, data: data }));
-    // console.log(this.state);
   };
 
   render() {

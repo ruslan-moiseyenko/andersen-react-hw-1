@@ -81,8 +81,6 @@ class Info extends React.Component {
 
     if (this.checkEntries(data)) {
       this.props.onSubmit(data);
-    } else {
-      console.log('ERROR');
     }
   };
 
@@ -90,24 +88,24 @@ class Info extends React.Component {
     this.deliteAllErrorsMessages();
 
     //check for empty entries
-    // for (let key in data) {
-    //   if (data[key] === '') {
-    //     const node = document.getElementsByClassName([key])[0];
-    //     node.insertAdjacentHTML(
-    //       'afterend',
-    //       `<span class=${styles.error}>Please, fill the field</span>`
-    //     );
-    //     node.focus();
-    //     return false;
-    //   }
-    // }
+    for (let key in data) {
+      if (data[key] === '') {
+        const node = document.getElementsByClassName([key])[0];
+        node.classList.add(styles.errorBorder);
+        node.insertAdjacentHTML(
+          'afterend',
+          `<span class=${styles.error}>Please, fill the field</span>`
+        );
+        node.focus();
+        return false;
+      }
+    }
 
     //check for correct entries
     for (const key in data) {
-      if (key === 'name') {
-        const regex = new RegExp('[A-ZА-Я][a-zа-я]+$', 'g');
+      if (key === 'name' || key === 'surname') {
+        const regex = new RegExp('^[A-ZА-Я][a-zа-я]+$', 'g');
         if (!regex.test(data[key])) {
-          console.log('Name ERROR');
           const node = document.getElementsByClassName([key])[0];
           node.classList.add(styles.errorBorder);
           node.insertAdjacentHTML(
@@ -118,40 +116,53 @@ class Info extends React.Component {
           return false;
         }
       }
-      if (key === 'surname') {
-        const regex = new RegExp('^[A-ZА-Я][a-zа-я]+$');
+
+      if (key === 'site') {
+        console.log('site is checking');
+        const regex = new RegExp('^(https://)');
+        console.log(regex.test(data[key]));
         if (!regex.test(data[key])) {
           const node = document.getElementsByClassName([key])[0];
           node.classList.add(styles.errorBorder);
           node.insertAdjacentHTML(
             'afterend',
-            `<span class=${styles.error}>Surame must start with a capital letter</span>`
+            `<span class=${styles.error}>A link to a site should start with https://</span>`
           );
           node.focus();
           return false;
         }
-        if (key === 'phone') {
-          const regex = new RegExp('^[0-9]{5,12}$');
-          if (!regex.test(data[key])) {
-            const node = document.getElementsByClassName([key])[0];
-            node.classList.add(styles.errorBorder);
-            node.insertAdjacentHTML(
-              'afterend',
-              `<span class=${styles.error}>Please, enter valid phone</span>`
-            );
-            node.focus();
-            return false;
-          }
-          if (data[key].length > 11) {
-            const node = document.getElementsByClassName([key])[0];
-            node.classList.add(styles.errorBorder);
-            node.insertAdjacentHTML(
-              'afterend',
-              `<span class=${styles.error}>Your phone number should be less then 12 charactersf</span>`
-            );
-            node.focus();
-            return false;
-          }
+      }
+
+      if (key === 'phone') {
+        const regex = new RegExp('^[0-9-]+$');
+        if (!regex.test(data[key])) {
+          const node = document.getElementsByClassName([key])[0];
+          node.classList.add(styles.errorBorder);
+          node.insertAdjacentHTML(
+            'afterend',
+            `<span class=${styles.error}>Please, enter valid phone</span>`
+          );
+          node.focus();
+          return false;
+        }
+        if (data[key].length > 12) {
+          const node = document.getElementsByClassName([key])[0];
+          node.classList.add(styles.errorBorder);
+          node.insertAdjacentHTML(
+            'afterend',
+            `<span class=${styles.error}>Your phone number should be less then 12 charactersf</span>`
+          );
+          node.focus();
+          return false;
+        }
+      }
+
+      if (key === 'about' || key === 'project') {
+        if (data[key].length > 600) {
+          const node = document.getElementsByClassName([key])[0];
+          node.classList.add(styles.errorBorder);
+          node.focus();
+          return false;
         }
       }
     }
@@ -162,6 +173,10 @@ class Info extends React.Component {
     const errors = document.getElementsByClassName(styles.error);
     for (let i = 0; i < errors.length; i++) {
       errors[i].remove();
+    }
+    const errorBorders = document.getElementsByClassName(styles.errorBorder);
+    for (let i = 0; i < errorBorders.length; i++) {
+      errorBorders[i].classList.remove(styles.errorBorder);
     }
   }
 
@@ -177,6 +192,7 @@ class Info extends React.Component {
       stack: '',
       project: ''
     });
+    this.deliteAllErrorsMessages();
   };
 
   handleChange = (e) => {

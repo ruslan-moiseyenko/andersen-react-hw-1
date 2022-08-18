@@ -8,15 +8,34 @@ class FilledProfile extends Component {
       this.props.data;
     return (
       <div className={styles.main}>
-        <Header text='Your filled profile' />
-        <h2>Your Name is: {name}</h2>
-        <h2>Your surname is: {surname}</h2>
-        <h2>Your date is: {date}</h2>
-        <h2>Your phone is: {phone}</h2>
-        <h2>Your site is: {site}</h2>
-        <h2>Your about is: {about}</h2>
-        <h2>Your stack is: {stack}</h2>
-        <h2>Your project is: {project}</h2>
+        <Header text={name + ' ' + surname} />
+        <div className={styles.info_block}>
+          <h2>Your date of birth is: </h2>
+          <p className={styles.text}> {date}</p>
+        </div>
+        <div className={styles.info_block}>
+          <h2>Your phone is: </h2>
+          <p className={styles.text}> {phone}</p>
+        </div>
+        <div className={styles.info_block}>
+          <h2>The link to your site is: </h2>
+          <p className={styles.text}> {site}</p>
+        </div>
+
+        <div className={styles.info_block}>
+          <h2>About you: </h2>
+          <p className={styles.text}> {about}</p>
+        </div>
+
+        <div className={styles.info_block}>
+          <h2>Your technologies stack is: </h2>
+          <p className={styles.text}> {stack}</p>
+        </div>
+
+        <div className={styles.info_block}>
+          <h2>The description of your last project: </h2>
+          <p className={styles.text}> {project}</p>
+        </div>
       </div>
     );
   }

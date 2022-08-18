@@ -12,7 +12,8 @@
 }
 
 .errorBorder {
-  border: 1px solid red;
+  /* border: 3px solid red; */
+  background-color: pink;
 }
 
 .error {
